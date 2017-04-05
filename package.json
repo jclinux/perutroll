@@ -4,6 +4,9 @@
     "prod": "gulp --production",
     "dev": "gulp watch"
   },
+  "dependencies": {
+    "react": "^15.4.2",
+  },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
     "gulp": "^3.9.1",
