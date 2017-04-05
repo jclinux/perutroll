@@ -21,5 +21,5 @@ Route::get('deploy', 'DeployController@index');
 
 
 Route::get('reactjs',function(){
-	return File::get(public_path() . '/canvas/index.html');
+	return File::get('/canvas/index.html');
 });
