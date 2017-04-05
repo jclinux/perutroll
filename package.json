@@ -5,7 +5,7 @@
     "dev": "gulp watch"
   },
   "dependencies": {
-    "react": "^15.4.2",
+    "react": "^15.4.2"
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
