@@ -8,4 +8,4 @@ Homestead.yaml
 /app/Http/controller/DeployController.php
 /app/Http/Middleware/VerifyCsrfToken.php
 /app/Http/Controllers/DeployController.php
-
+npm-debug.log
