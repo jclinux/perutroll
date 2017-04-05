@@ -6,7 +6,7 @@ module.exports = {
  entry: path.join(__dirname+'/main.js'), //cual es la entrada de nuestra aplicacion
  output: {
    path: path.join(__dirname + '/js'), //donde colocará los archivos al terminar
-   filename: 'app.js' //el nombre de nuestro bundle
+   filename: 'js/app.js' //el nombre de nuestro bundle
  },
  devServer: { // opciones para el servidor de desarrollo
    inline: true, // para que se recargue automáticamente cuando cambie un archivo

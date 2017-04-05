@@ -28,7 +28,9 @@ class App extends React.Component {
 			<div>
 				<canvas id="my_canvas" ref="canvas"></canvas>
 				<ul>
-					
+					{this.props.cats.map((item, index) => {
+						return <li key={index}>{item.name}</li>
+					})}
 				</ul>
 			</div>
 			)
@@ -37,6 +39,7 @@ class App extends React.Component {
 
 
 function mapStateToProps(state, ownProps){
+	//console.log(state.cats)
 	return {
 		cats: state.cats
 	}
