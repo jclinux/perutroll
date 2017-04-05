@@ -3,9 +3,9 @@
 var path = require('path');
 
 module.exports = {
- entry: path.join(__dirname+'/main.js'), //cual es la entrada de nuestra aplicacion
+ entry: path.join(__dirname+'/reactjs.js'), //cual es la entrada de nuestra aplicacion
  output: {
-   path: '../../public/js', //donde colocará los archivos al terminar
+   path: './public/js', //donde colocará los archivos al terminar
    filename: 'react.js', //el nombre de nuestro bundle
    publicPath : 'js'
  },
