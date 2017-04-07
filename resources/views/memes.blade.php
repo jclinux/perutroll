@@ -33,6 +33,9 @@
                     <a href="{{$node->attributes['src']->value}}">
                         <img class="img-responsive img-rounded" src="{{$node->attributes['src']->value}}" />
                     </a>
+                    <p class="text-center">
+                        <a target="_blank" href="javascript:window.open('https://www.facebook.com/dialog/feed?app_id=184683071273&link={{url('/')}}&picture={{$node->attributes['src']->value}}&name=PeruTroll&caption=%20&description=Genera a tus amigos&redirect_uri=http%3A%2F%2Fwww.facebook.com%2F','Facebook','height=269,width=550,resizable=1')" class="btn btn-xs btn-primary">Compartir</a>
+                    </p>
                 </div>
 
             @endforeach
