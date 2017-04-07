@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './src/App';
+import App from './reactjs/App';
 import {Provider} from 'react-redux'
 
-import configureStore from './src/store/configureStore'
-import {loadCats} from './src/actions/catActions';
+import configureStore from './reactjs/store/configureStore'
+import {loadCats} from './reactjs/actions/catActions';
 
 const store = configureStore();
 
