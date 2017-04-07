@@ -26,6 +26,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
+				<h3>Generador de App Meme </h3>
 				<canvas id="my_canvas" ref="canvas"></canvas>
 				<ul>
 					{this.props.cats.map((item, index) => {
