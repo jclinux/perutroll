@@ -30,7 +30,9 @@
         <div class="row marketing">
             @foreach ($memes as $node)
                 <div class="col-lg-4">
-                    <img class="img-responsive img-rounded" src="{{$node->attributes['src']->value}}" />
+                    <a href="{{$node->attributes['src']->value}}">
+                        <img class="img-responsive img-rounded" src="{{$node->attributes['src']->value}}" />
+                    </a>
                 </div>
 
             @endforeach
