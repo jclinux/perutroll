@@ -40,7 +40,7 @@
         </div>
 
         <footer class="footer">
-            <p>&copy; 2016 Company, Inc.</p>
+            <p>&copy; 2017 Company PeruTroll, Inc.</p>
         </footer>
 
     </div> <!-- /container -->
