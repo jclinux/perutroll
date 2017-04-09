@@ -8,49 +8,78 @@ use Illuminate\Http\Request;
 class PerutrollController extends Controller
 {
  private $facebook_access_token =null;  
+ private $fb=null;
 
- public function index(){
- 
-      if (isset($_SESSION['facebook_access_token'])) { 
+ public function __construct()
+    {
+
+    if (isset($_SESSION['facebook_access_token'])) { 
          $this->facebook_access_token=$_SESSION['facebook_access_token'];         
       }
 
-	$fb = new \Facebook\Facebook([
-	  'app_id' => config('facebook.default.app_id'),
-	  'app_secret' => config('facebook.default.app_secret'),
-	  'default_graph_version' =>config('facebook.default.default_graph_version'),
-	  'default_access_token' => !empty($facebook_access_token) ? $facebook_access_token : 'APP-1587689828188355|59c0d907a249cd37bc9e98caf7b675d6'
-	]);
+    $this->fb = new Facebook\Facebook([
+    'app_id' => config('facebook.default.app_id'),
+    'app_secret' => config('facebook.default.app_secret'),
+    'default_graph_version' =>config('facebook.default.default_graph_version'),
+    'default_access_token' => !empty($this->facebook_access_token) ? $this->facebook_access_token : 'APP-1587689828188355|59c0d907a249cd37bc9e98caf7b675d6'
+     ]);
+     
+    }
 
-// Use one of the helper classes to get a Facebook\Authentication\AccessToken entity.
-//   $helper = $fb->getRedirectLoginHelper();
-//   $helper = $fb->getJavaScriptHelper();
-//   $helper = $fb->getCanvasHelper();
-//   $helper = $fb->getPageTabHelper();
+ public function index(){
+ 	 session_start(); 
+	 $data=[];
 
-try {
-  // Get the \Facebook\GraphNodes\GraphUser object for the current user.
-  // If you provided a 'default_access_token', the '{access-token}' is optional.
-  $response = $fb->get('/me');
-} catch(\Facebook\Exceptions\FacebookResponseException $e) {
-  // When Graph returns an error
-  echo 'Graph returned an error: ' . $e->getMessage();
-  exit;
-} catch(\Facebook\Exceptions\FacebookSDKException $e) {
-  // When validation fails or other local issues
-  echo 'Facebook SDK returned an error: ' . $e->getMessage();
-  exit;
-}
-
-$me = $response->getGraphUser();
-echo 'Logged in ' . $me->getName();
-
-
-
-
-
-  	return view('home');
+    if (isset($_SESSION['user']))
+    {
+      $data['user']=$_SESSION['user'];
+                 
+    }else{
+	   $helper = $this->fb->getRedirectLoginHelper();
+	   $permissions = ['email', 'user_likes','user_friends','public_profile','user_photos'];
+	   $loginUrl = $helper->getLoginUrl('http://dev.perutroll.com/login/callback', $permissions);
+	   $data['url']=$loginUrl;
+	}	
+	return view('home',$data);  	
   }  
 
-    
+
+public function callback(Request $request)
+  {
+    session_start();        
+    $accessToken=$this->getAccessToken($fb);            
+    if (isset($accessToken))
+      {
+        $_SESSION['facebook_access_token']=$accessToken;
+        $response = $fb->get('/me?fields=name,email,id,picture,first_name,last_name,gender,birthday', $accessToken);        
+        $user = $response->getGraphUser();                        
+        //dd($user);
+        //$authUser = $this->findOrCreateUser($user);        
+        // session
+        $_SESSION['user']=array(
+            'name' => $user['name'],
+            'email' => $user['email'],
+            'facebook_id' => $user['id']
+          );
+
+        return redirect('/');        
+      }      
+}
+
+
+public function getAccessToken()
+{
+//session_start();
+   $accessToken=null;
+   $helper = $this->fb->getRedirectLoginHelper();
+   try {
+       $accessToken = $helper->getAccessToken();
+     } catch(Facebook\Exceptions\FacebookResponseException $e) {
+         echo 'Graph returned an error: ' . $e->getMessage();
+     } catch(Facebook\Exceptions\FacebookSDKException $e) {    
+         echo 'Facebook SDK returned an error: ' . $e->getMessage();
+     } 
+   return (string) $accessToken;
+}
+
 }

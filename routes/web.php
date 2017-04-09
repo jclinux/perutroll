@@ -20,3 +20,7 @@ Route::get('/', 'PerutrollController@index');
 Route::get('reactjs',function(){
 	return view('react');
 });
+
+Route::get('/login/callback', 'PerutrollController@callback');
+Route::get('/logout', 'PerutrollController@logout');
+Route::get('/politicaprivacidad', 'PerutrollController@politicaprivacidad');

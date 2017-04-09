@@ -11,7 +11,14 @@
                   </ul>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                  <p class="text-right"><a class="btn btn-lg btn-login" href="#">Ingresa con Facebook</a></p>
+                @if (!empty($url))
+                  <p class="text-right"><a class="btn btn-lg btn-login" href="{{$url}}">Ingresa con Facebook</a></p>
+                @elseif(!empty($user))
+                    <span><b>Bienvenido(a)</b>:</span>
+                    <br/>
+                    <span>{{$user['name']}}</span>        
+                @endif
+
               </div>
           </div>
       </div>
