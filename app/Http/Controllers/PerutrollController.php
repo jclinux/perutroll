@@ -37,7 +37,7 @@ class PerutrollController extends Controller
     }else{
 	   $helper = $this->fb->getRedirectLoginHelper();
 	   $permissions = ['email', 'user_likes','user_friends','public_profile','user_photos'];
-	   $loginUrl = $helper->getLoginUrl('http://dev.perutroll.com/login/callback', $permissions);
+	   $loginUrl = $helper->getLoginUrl('http://perutroll.com/login/callback', $permissions);
 	   $data['url']=$loginUrl;
 	}	
 	return view('home',$data);  	
