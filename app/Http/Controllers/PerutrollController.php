@@ -43,7 +43,7 @@ try {
 }
 
 $me = $response->getGraphUser();
-echo 'Logged in as ' . $me->getName();
+echo 'Logged in ' . $me->getName();
 
 
 
