@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 use Facebook;
 use Facebook\FacebookSession as FacebookSession;
 use Facebook\FacebookRequest as FacebookRequest;
-
 use Illuminate\Http\Request;
-
 class PerutrollController extends Controller
 {
  private $facebook_access_token =null;  
-public function index(){
+
+ public function index(){
  
       if (isset($_SESSION['facebook_access_token'])) { 
          $this->facebook_access_token=$_SESSION['facebook_access_token'];         
