@@ -1,0 +1,27 @@
+$(function(){
+    $('#someTab').tab('show');
+    $('#showUpload').click(function(e){
+        e.preventDefault();
+        $('.pt-section-upload').slideDown().focus();
+        $('#hideUpload').show();
+        $(this).hide();
+    });
+    $('#hideUpload').click(function(e){
+        e.preventDefault();
+        $('.pt-section-upload').slideUp();
+        $('#showUpload').show();
+        $(this).hide();
+      });
+      $('#showOptions').click(function(e){
+          e.preventDefault();
+          $('.pt-section-options').slideDown().focus();
+          $('#hideOptions').show();
+          $(this).hide();
+      });
+      $('#hideOptions').click(function(e){
+          e.preventDefault();
+          $('.pt-section-options').slideUp();
+          $('#showOptions').show();
+          $(this).hide();
+        });
+});

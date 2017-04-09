@@ -11,13 +11,12 @@
 |
 */
 
-Route::get('/','MemeController@index');
+//Route::get('/','MemeController@index');
 
 
 Route::match(['get', 'post'],'deploy', 'DeployController@index');
 Route::get('deploy', 'DeployController@index');
-
-
+Route::get('/', 'PerutrollController@index');
 Route::get('reactjs',function(){
 	return view('react');
 });
