@@ -9,17 +9,17 @@ class DeployController extends Controller
     public function index()
     {
       
-       $LOCAL_ROOT='/var/www/perutroll/memes';
-       $LOCAL_REPO_NAME="";
+       $LOCAL_ROOT='/var/www';
+       $LOCAL_REPO_NAME="perutroll";
        $LOCAL_REPO="{$LOCAL_ROOT}/$LOCAL_REPO_NAME";
-       $REMOTE_REPO="https://github.com/digesis2017/digesis.git";
+       $REMOTE_REPO="https://github.com/jclinux/perutroll.git";
        $DESIRED_BRANCH="master";
 
 if (file_exists($LOCAL_ROOT)){
 	echo 'paso1';
 	//shell_exec("rm -rf {$LOCAL_REPO_NAME}");
-	$output = shell_exec('git pull 2>&1');
-	echo $output;
+	//$output = shell_exec('git pull 2>&1');
+	//echo $output;
 }
 if (file_exists($LOCAL_REPO)):
 	echo 'paso2'."cd {$LOCAL_REPO} && git pull";
@@ -39,3 +39,4 @@ die("done " . date('Y-m-d h:i:s a', time()) . "\n"  );
   return 'deploy';
     }
 }
+
