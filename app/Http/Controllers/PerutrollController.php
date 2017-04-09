@@ -47,11 +47,11 @@ class PerutrollController extends Controller
 public function callback(Request $request)
   {
     session_start();        
-    $accessToken=$this->getAccessToken($fb);            
+    $accessToken=$this->getAccessToken($this->fb);            
     if (isset($accessToken))
       {
         $_SESSION['facebook_access_token']=$accessToken;
-        $response = $fb->get('/me?fields=name,email,id,picture,first_name,last_name,gender,birthday', $accessToken);        
+        $response = $this->fb->get('/me?fields=name,email,id,picture,first_name,last_name,gender,birthday', $accessToken);        
         $user = $response->getGraphUser();                        
         //dd($user);
         //$authUser = $this->findOrCreateUser($user);        
