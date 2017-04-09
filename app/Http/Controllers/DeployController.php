@@ -9,11 +9,7 @@ class DeployController extends Controller
     public function index()
     {
       
-<<<<<<< HEAD
-       $LOCAL_ROOT='/var/www/';
-=======
        $LOCAL_ROOT='/var/www';
->>>>>>> fa11c41a676a27555a70b3794edc5d8fa0e8bbc5
        $LOCAL_REPO_NAME="perutroll";
        $LOCAL_REPO="{$LOCAL_ROOT}/$LOCAL_REPO_NAME";
        $REMOTE_REPO="https://github.com/jclinux/perutroll.git";
