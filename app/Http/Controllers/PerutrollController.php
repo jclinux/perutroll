@@ -56,7 +56,7 @@ public function callback(Request $request)
     if (isset($accessToken))
       {
         $_SESSION['facebook_access_token']=$accessToken;
-        $response = $this->fb->get('/me?fields=name,email,id,picture,first_name,last_name,gender,birthday', $accessToken);        
+        $response = $fb->get('/me?fields=name,email,id,picture,first_name,last_name,gender,birthday', $accessToken);        
         $user = $response->getGraphUser();
         //dd($user);
         //$authUser = $this->findOrCreateUser($user);        
