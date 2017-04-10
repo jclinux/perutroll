@@ -72,11 +72,12 @@ public function callback(Request $request)
 
 public function getAccessToken($fb=null)
 {
-   session_start();
+   //session_start();
    $accessToken=null;
    $helper = $fb->getRedirectLoginHelper();
    try {
-       $accessToken = $helper->getAccessToken();
+       echo $accessToken = $helper->getAccessToken();
+       exit();
      } catch(Facebook\Exceptions\FacebookResponseException $e) {
          echo 'Graph returned an error: ' . $e->getMessage();
      } catch(Facebook\Exceptions\FacebookSDKException $e) {    
