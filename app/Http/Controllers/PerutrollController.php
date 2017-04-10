@@ -37,9 +37,44 @@ class PerutrollController extends Controller
     if (isset($_SESSION['user']))
     {
       $data['user']=$_SESSION['user'];
-      $response=$this->getFotos($fb);
-	    $data['friends']=$response;
+      //$response=$this->getFotos($fb);
+	    //$data['friends']=$response;
 	  
+ $friends=array();
+  $r_picture=array();
+  if ($accessToken)
+  {
+    /*$response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
+    $rspta6 = $response->getGraphEdge()->asArray();
+    var_dump($rspta6); 
+    exit;*/
+
+    $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
+    $r_friends = $response->getGraphEdge()->asArray();        
+
+    foreach ($r_friends as $key => $value) {
+        $friends[$key]['id']=$value['id'];
+        $friends[$key]['name']=$this->getName($value['name']);
+        $friends[$key]['fullname']=$value['name'];
+        $friends[$key]['picture_normal']=$value['picture_normal']['url'];   
+        $friends[$key]['picture_large']=$value['picture_large']['url'];   
+
+        $r_picture[$value['id']]=$value['picture_large']['url'];
+    }    
+        $_SESSION['pictures']=$r_picture;
+        var_dump($friends); 
+        exit;
+  }
+
+
+
+
+
+
+
+
+
+
     }else{
 	   $helper = $fb->getRedirectLoginHelper();
 	   $permissions = ['email', 'user_likes','user_friends','public_profile','user_photos'];
@@ -101,7 +136,7 @@ private function getFotos($fb=null){
     var_dump($rspta6); 
     exit;*/
 
-    $response = $fb->get('me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
+    $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
     $r_friends = $response->getGraphEdge()->asArray();        
 
     foreach ($r_friends as $key => $value) {
