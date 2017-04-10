@@ -44,10 +44,10 @@ class PerutrollController extends Controller
   $r_picture=array();
   if ($this->facebook_access_token)
   {
-    /*$response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
+    $response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
     $rspta6 = $response->getGraphEdge()->asArray();
     var_dump($rspta6); 
-    exit;*/
+    exit;
 
     $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $this->facebook_access_token);
     $r_friends = $response->getGraphEdge()->asArray();        
