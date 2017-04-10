@@ -72,7 +72,7 @@ public function callback(Request $request)
 
 public function getAccessToken($fb=null)
 {
-//session_start();
+   session_start();
    $accessToken=null;
    $helper = $fb->getRedirectLoginHelper();
    try {
