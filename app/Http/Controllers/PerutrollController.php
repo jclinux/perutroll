@@ -37,13 +37,12 @@ class PerutrollController extends Controller
     if (isset($_SESSION['user']))
     {
       $data['user']=$_SESSION['user'];
-      //$response=$this->getFotos();
-	  //$data['friends']=$response;
+      $response=$this->getFotos();
+	    $data['friends']=$response;
 
-	 $response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
+	 /*$response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
     $rspta6 = $response->getGraphEdge()->asArray();
-    var_dump($rspta6);    
-    
+    var_dump($rspta6);    */    
 
     }else{
 	   $helper = $fb->getRedirectLoginHelper();
@@ -51,7 +50,7 @@ class PerutrollController extends Controller
 	   $loginUrl = $helper->getLoginUrl('http://perutroll.com/login/callback', $permissions);
 	   $data['url']=$loginUrl;
 	}
-	//var_dump($data);
+	var_dump($data);
 	return view('home',$data);  	
   }  
 public function callback(Request $request)
@@ -104,7 +103,7 @@ private function getFotos(){
   $r_picture=array();
   if ($accessToken)
   {    
-    $response = $fb->get('/me/invitable_friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
+    $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
     $r_friends = $response->getGraphEdge()->asArray();        
     foreach ($r_friends as $key => $value) {
         $friends[$key]['id']=$value['id'];
