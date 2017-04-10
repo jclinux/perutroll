@@ -37,13 +37,9 @@ class PerutrollController extends Controller
     if (isset($_SESSION['user']))
     {
       $data['user']=$_SESSION['user'];
-      $response=$this->getFotos();
+      $response=$this->getFotos($fb);
 	    $data['friends']=$response;
-
-	  $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false',$this->facebook_access_token);
-    $rspta6 = $response->getGraphEdge()->asArray();
-    var_dump($rspta6); 
-    exit;
+	  
     }else{
 	   $helper = $fb->getRedirectLoginHelper();
 	   $permissions = ['email', 'user_likes','user_friends','public_profile','user_photos'];
@@ -92,23 +88,22 @@ public function getAccessToken($fb=null)
    return (string) $accessToken;
 }
 
-private function getFotos(){
+private function getFotos($fb=null){
 
-  $accessToken=$_SESSION['facebook_access_token'];     
-  
-  $fb=$this->init();           	
+  $accessToken=$_SESSION['facebook_access_token'];  
+  //$fb=$this->init();           	
   $friends=array();
   $r_picture=array();
   if ($accessToken)
-  {    
-
-    $response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
+  {
+    /*$response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
     $rspta6 = $response->getGraphEdge()->asArray();
     var_dump($rspta6); 
-    exit;
+    exit;*/
 
-//    $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
-  //  $r_friends = $response->getGraphEdge()->asArray();        
+    $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
+    $r_friends = $response->getGraphEdge()->asArray();        
+
     foreach ($r_friends as $key => $value) {
         $friends[$key]['id']=$value['id'];
         $friends[$key]['name']=$this->getName($value['name']);
