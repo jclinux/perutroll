@@ -37,19 +37,23 @@ class PerutrollController extends Controller
     if (isset($_SESSION['user']))
     {
       $data['user']=$_SESSION['user'];
-      $response=$this->getFotos();
-	  $data['friends']=$response;
+      //$response=$this->getFotos();
+	  //$data['friends']=$response;
+
+	$response = $fb->get('/me/invitable_friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
+    $rspta6 = $response->getGraphEdge()->asArray();
+    var_dump($rspta6);    
+    
+
     }else{
 	   $helper = $fb->getRedirectLoginHelper();
 	   $permissions = ['email', 'user_likes','user_friends','public_profile','user_photos'];
 	   $loginUrl = $helper->getLoginUrl('http://perutroll.com/login/callback', $permissions);
 	   $data['url']=$loginUrl;
-	}	
+	}
 	var_dump($data);
 	return view('home',$data);  	
   }  
-
-
 public function callback(Request $request)
   {
     session_start();  
