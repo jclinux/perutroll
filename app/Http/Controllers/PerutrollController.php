@@ -116,4 +116,12 @@ private function getFotos(){
   }
 }
 
+ public function logout(){
+  session_start();
+  if (isset($_SESSION['user'])){
+      session_destroy();
+      unset($_SESSION['user']);
+  }
+ }
+
 }
