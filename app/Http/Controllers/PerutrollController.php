@@ -51,7 +51,7 @@ class PerutrollController extends Controller
 	   $loginUrl = $helper->getLoginUrl('http://perutroll.com/login/callback', $permissions);
 	   $data['url']=$loginUrl;
 	}
-	var_dump($data);
+	//var_dump($data);
 	return view('home',$data);  	
   }  
 public function callback(Request $request)
