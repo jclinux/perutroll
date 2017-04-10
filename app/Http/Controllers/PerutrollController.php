@@ -63,8 +63,7 @@ class PerutrollController extends Controller
         $r_picture[$value['id']]=$value['picture_large']['url'];
     }    
         $_SESSION['pictures']=$r_picture;
-        print_r($friends); 
-      
+        print_r($friends);     
   }
 
     }else{
@@ -74,6 +73,7 @@ class PerutrollController extends Controller
 	   $data['url']=$loginUrl;
 	}
 	
+  exit;
 	return view('home',$data);  	
   }  
 public function callback(Request $request)
