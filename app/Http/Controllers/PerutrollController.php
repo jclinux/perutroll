@@ -48,9 +48,7 @@ public function callback(Request $request)
   {
     session_start();             
 	var_dump($this->fb);
-    $accessToken=$this->getAccessToken($this->fb);            
-    var_dump($accessToken);
-    exit();
+    $accessToken=$this->getAccessToken($this->fb);                    
     if (isset($accessToken))
       {
         $_SESSION['facebook_access_token']=$accessToken;
