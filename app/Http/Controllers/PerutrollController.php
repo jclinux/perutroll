@@ -54,8 +54,7 @@ public function callback(Request $request)
     'default_graph_version' =>config('facebook.default.default_graph_version'),
     'default_access_token' => !empty($this->facebook_access_token) ? $this->facebook_access_token : 'APP-1587689828188355|59c0d907a249cd37bc9e98caf7b675d6'
      ]);
-
-
+	var_dump($this->fb);
     $accessToken=$this->getAccessToken($this->fb);            
     var_dump($accessToken);
     exit();
