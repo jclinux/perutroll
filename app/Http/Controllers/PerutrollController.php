@@ -46,14 +46,7 @@ class PerutrollController extends Controller
 
 public function callback(Request $request)
   {
-    session_start();        
-
-     $this->fb = new Facebook\Facebook([
-    'app_id' => config('facebook.default.app_id'),
-    'app_secret' => config('facebook.default.app_secret'),
-    'default_graph_version' =>config('facebook.default.default_graph_version'),
-    'default_access_token' => !empty($this->facebook_access_token) ? $this->facebook_access_token : 'APP-1587689828188355|59c0d907a249cd37bc9e98caf7b675d6'
-     ]);
+    session_start();             
 	var_dump($this->fb);
     $accessToken=$this->getAccessToken($this->fb);            
     var_dump($accessToken);
@@ -77,11 +70,11 @@ public function callback(Request $request)
 }
 
 
-public function getAccessToken()
+public function getAccessToken($fb=null)
 {
 //session_start();
    $accessToken=null;
-   $helper = $this->fb->getRedirectLoginHelper();
+   $helper = $fb->getRedirectLoginHelper();
    try {
        $accessToken = $helper->getAccessToken();
      } catch(Facebook\Exceptions\FacebookResponseException $e) {
