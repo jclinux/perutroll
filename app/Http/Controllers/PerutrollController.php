@@ -40,7 +40,7 @@ class PerutrollController extends Controller
       //$response=$this->getFotos();
 	  //$data['friends']=$response;
 
-	$response = $fb->get('/me/invitable_friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
+	 $response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
     $rspta6 = $response->getGraphEdge()->asArray();
     var_dump($rspta6);    
     
