@@ -37,43 +37,16 @@ class PerutrollController extends Controller
     if (isset($_SESSION['user']))
     {
       $data['user']=$_SESSION['user'];
-      //$response=$this->getFotos($fb);
-	    //$data['friends']=$response;
+      $response=$this->getFotos($fb);
+	    $data['friends']=$response;
 	  
- $friends=array();
-  $r_picture=array();
-  if ($this->facebook_access_token)
-  {
-    $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=1000&redirect=false',$this->facebook_access_token);
-    $rspta6 = $response->getGraphEdge()->asArray();
-    //var_dump($rspta6); 
-    //exit;
-
-    //$response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $this->facebook_access_token);
-    //$r_friends = $response->getGraphEdge()->asArray();        
-
-    foreach ($rspta6 as $key => $value)
-    {
-        $friends[$key]['id']=$value['id'];
-        $friends[$key]['name']=$this->getName($value['name']);
-        $friends[$key]['fullname']=$value['name'];
-        $friends[$key]['picture_normal']=$value['picture_normal']['url'];   
-        $friends[$key]['picture_large']=$value['picture_large']['url'];   
-
-        $r_picture[$value['id']]=$value['picture_large']['url'];
-    }    
-        $_SESSION['pictures']=$r_picture;
-        print_r($friends);     
-  }
-
     }else{
 	   $helper = $fb->getRedirectLoginHelper();
 	   $permissions = ['email', 'user_likes','user_friends','public_profile','user_photos'];
 	   $loginUrl = $helper->getLoginUrl('http://perutroll.com/login/callback', $permissions);
 	   $data['url']=$loginUrl;
 	}
-	
-  exit;
+	var_dump($data);
 	return view('home',$data);  	
   }  
 public function callback(Request $request)
@@ -117,12 +90,14 @@ public function getAccessToken($fb=null)
 
 private function getFotos($fb=null){
 
-  $accessToken=$_SESSION['facebook_access_token'];  
+  $accessToken=$_SESSION['facebook_access_token'];     
+  
   //$fb=$this->init();           	
   $friends=array();
   $r_picture=array();
   if ($accessToken)
-  {
+  {    
+
     /*$response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
     $rspta6 = $response->getGraphEdge()->asArray();
     var_dump($rspta6); 
@@ -133,7 +108,7 @@ private function getFotos($fb=null){
 
     foreach ($r_friends as $key => $value) {
         $friends[$key]['id']=$value['id'];
-        $friends[$key]['name']=$this->getName($value['name']);
+        $friends[$key]['name']=explore($value['name'],'')[0];
         $friends[$key]['fullname']=$value['name'];
         $friends[$key]['picture_normal']=$value['picture_normal']['url'];   
         $friends[$key]['picture_large']=$value['picture_large']['url'];   
