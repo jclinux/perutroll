@@ -108,7 +108,7 @@ private function getFotos($fb=null){
 
     foreach ($r_friends as $key => $value) {
         $friends[$key]['id']=$value['id'];
-        $friends[$key]['name']=explore($value['name'],'')[0];
+        //$friends[$key]['name']=explore($value['name'],'')[0];
         $friends[$key]['fullname']=$value['name'];
         $friends[$key]['picture_normal']=$value['picture_normal']['url'];   
         $friends[$key]['picture_large']=$value['picture_large']['url'];   
