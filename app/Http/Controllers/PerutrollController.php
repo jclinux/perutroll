@@ -89,7 +89,7 @@ public function getAccessToken($fb=null)
    return (string) $accessToken;
 }
 
-private function getFotos($request){
+private function getFotos(){
 
   $accessToken=$_SESSION['facebook_access_token'];     
   $fb=$this->init();           	
