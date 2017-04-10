@@ -91,8 +91,10 @@ public function getAccessToken($fb=null)
 
 private function getFotos(){
 
-  echo $accessToken=$_SESSION['facebook_access_token'];     
-  exit;
+  $accessToken=$_SESSION['facebook_access_token'];     
+  echo $this->facebook_access_token;
+  print_r($accessToken);
+  exit();
   $fb=$this->init();           	
   $friends=array();
   $r_picture=array();
