@@ -101,7 +101,7 @@ private function getFotos($fb=null){
     var_dump($rspta6); 
     exit;*/
 
-    $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
+    $response = $fb->get('me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
     $r_friends = $response->getGraphEdge()->asArray();        
 
     foreach ($r_friends as $key => $value) {
