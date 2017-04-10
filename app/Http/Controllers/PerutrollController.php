@@ -40,10 +40,10 @@ class PerutrollController extends Controller
       $response=$this->getFotos();
 	    $data['friends']=$response;
 
-	 /*$response = $fb->get('/me/friends?fields=name,email,id,picture.width(300)&redirect=false&type=large',$this->facebook_access_token);
+	  $response = $fb->get('/me/friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false',$this->facebook_access_token);
     $rspta6 = $response->getGraphEdge()->asArray();
-    var_dump($rspta6);    */    
-
+    var_dump($rspta6); 
+    exit;
     }else{
 	   $helper = $fb->getRedirectLoginHelper();
 	   $permissions = ['email', 'user_likes','user_friends','public_profile','user_photos'];
@@ -95,8 +95,6 @@ public function getAccessToken($fb=null)
 private function getFotos(){
 
   $accessToken=$_SESSION['facebook_access_token'];     
-  echo $this->facebook_access_token;
-  print_r($accessToken);
   
   $fb=$this->init();           	
   $friends=array();
