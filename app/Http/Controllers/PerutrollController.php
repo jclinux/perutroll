@@ -37,13 +37,15 @@ class PerutrollController extends Controller
     if (isset($_SESSION['user']))
     {
       $data['user']=$_SESSION['user'];
-                 
+      $response=$this->getFotos();
+	  $data['friends']=$response;
     }else{
 	   $helper = $fb->getRedirectLoginHelper();
 	   $permissions = ['email', 'user_likes','user_friends','public_profile','user_photos'];
 	   $loginUrl = $helper->getLoginUrl('http://perutroll.com/login/callback', $permissions);
 	   $data['url']=$loginUrl;
 	}	
+	var_dump($data);
 	return view('home',$data);  	
   }  
 
@@ -85,6 +87,30 @@ public function getAccessToken($fb=null)
          echo 'Facebook SDK returned an error: ' . $e->getMessage();
      } 
    return (string) $accessToken;
+}
+
+private function getFotos($request){
+
+  $accessToken=$_SESSION['facebook_access_token'];     
+  $fb=$this->init();           	
+  $friends=array();
+  $r_picture=array();
+  if ($accessToken)
+  {    
+    $response = $fb->get('/me/invitable_friends?fields=name,email,id,picture.type(small).as(picture_small), picture.type(normal).as(picture_normal),picture.width(400).height(400).as(picture_large)&limit=100&redirect=false', $accessToken);
+    $r_friends = $response->getGraphEdge()->asArray();        
+    foreach ($r_friends as $key => $value) {
+        $friends[$key]['id']=$value['id'];
+        $friends[$key]['name']=$this->getName($value['name']);
+        $friends[$key]['fullname']=$value['name'];
+        $friends[$key]['picture_normal']=$value['picture_normal']['url'];   
+        $friends[$key]['picture_large']=$value['picture_large']['url'];   
+
+        $r_picture[$value['id']]=$value['picture_large']['url'];
+    }    
+        $_SESSION['pictures']=$r_picture;
+    return $friends; 
+  }
 }
 
 }
