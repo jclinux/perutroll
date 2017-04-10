@@ -12,30 +12,34 @@ class PerutrollController extends Controller
 
  public function __construct()
     {
+        
+    }
 
-    if (isset($_SESSION['facebook_access_token'])) { 
+  private function init(){
+
+  if (isset($_SESSION['facebook_access_token'])) { 
          $this->facebook_access_token=$_SESSION['facebook_access_token'];         
       }
 
-    $this->fb = new Facebook\Facebook([
+    $fb = new Facebook\Facebook([
     'app_id' => config('facebook.default.app_id'),
     'app_secret' => config('facebook.default.app_secret'),
     'default_graph_version' =>config('facebook.default.default_graph_version'),
     'default_access_token' => !empty($this->facebook_access_token) ? $this->facebook_access_token : 'APP-1587689828188355|59c0d907a249cd37bc9e98caf7b675d6'
      ]);
-     
+    return $fb;
     }
 
  public function index(){
- 	 session_start(); 
-	 $data=[];
-
+ 	session_start(); 
+	$data=[];
+	$fb=$this->init();
     if (isset($_SESSION['user']))
     {
       $data['user']=$_SESSION['user'];
                  
     }else{
-	   $helper = $this->fb->getRedirectLoginHelper();
+	   $helper = $fb->getRedirectLoginHelper();
 	   $permissions = ['email', 'user_likes','user_friends','public_profile','user_photos'];
 	   $loginUrl = $helper->getLoginUrl('http://perutroll.com/login/callback', $permissions);
 	   $data['url']=$loginUrl;
@@ -46,9 +50,9 @@ class PerutrollController extends Controller
 
 public function callback(Request $request)
   {
-    session_start();             	
-    $accessToken=$this->getAccessToken($this->fb);                    
-    var_dump($accessToken);
+    session_start();  
+    $fb=$this->init();           	
+    $accessToken=$this->getAccessToken($fb);    
     if (isset($accessToken))
       {
         $_SESSION['facebook_access_token']=$accessToken;
@@ -74,8 +78,7 @@ public function getAccessToken($fb=null)
    $accessToken=null;
    $helper = $fb->getRedirectLoginHelper();
    try {
-       echo $accessToken = $helper->getAccessToken();
-       exit();
+       $accessToken = $helper->getAccessToken();       
      } catch(Facebook\Exceptions\FacebookResponseException $e) {
          echo 'Graph returned an error: ' . $e->getMessage();
      } catch(Facebook\Exceptions\FacebookSDKException $e) {    

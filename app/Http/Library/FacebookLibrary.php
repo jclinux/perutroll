@@ -12,7 +12,7 @@ class FacebookLibrary {
 
    public function init($request)
    {
-      //session_start();
+      session_start();
       $facebook_access_token=null;
 
       if (isset($_SESSION['facebook_access_token'])) {
